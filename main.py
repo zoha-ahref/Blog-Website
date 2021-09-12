@@ -117,9 +117,17 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["POST", "GET"])
 def contact():
-    return render_template("contact.html")
+        if request.method == "POST":
+            data = request.form
+            print(data["username"])
+            print(data["email"])
+            print(data["phone"])
+            return render_template("contact.html", msg_sent=True)
+        else:
+            return render_template("contact.html", msg_sent=False)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
